@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="generated_app"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="Organization">
+	<column name="OrganizationID" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="AboutOrganization" type="VARCHAR(250)" />
+    
+     <column name="OrganzationMissionVision" type="VARCHAR(250)" />
+    
+     <column name="OrganizationValues" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="EmployeePersonalInfo">
+	<column name="EmpPersonalInfoID" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="EmployeeFullName" type="VARCHAR(250)" />
+    
+     <column name="Gender" type="BOOLEAN" />
+    
+     <column name="PhoneNumber" type="BIGINT" />
+    
+     <column name="LaguagesKnown" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="EmlpoyeeProfile">
+	<column name="EmpID" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="EmpName" type="VARCHAR(250)" />
+    
+     <column name="EmpEmailID" type="VARCHAR(250)" />
+    
+     <column name="EmpPhoto" type="VARCHAR(250)" />
+    
+     <column name="Details" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="OrganizationEmployees">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="OrganizationID" type="INTEGER" />
+	<column name="EmpID" type="INTEGER" />
+</createTable>
+
+ 	<addForeignKeyConstraint baseTableName="OrganizationEmployees" baseTableSchemaName="${schemaName}"  baseColumnNames="OrganizationID" constraintName="EmlpoyeeProfile_OrganizationID_fk"
+	                                  referencedTableName="Organization" referencedTableSchemaName="${schemaName}" referencedColumnNames="OrganizationID"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="OrganizationEmployees" baseTableSchemaName="${schemaName}"  baseColumnNames="EmpID" constraintName="EmlpoyeeProfile_EmpID_fk"
+	                                  referencedTableName="EmlpoyeeProfile" referencedTableSchemaName="${schemaName}" referencedColumnNames="EmpID"/>
+ 
+	
+ 
+ 
+ 	<addColumn tableName="EmlpoyeeProfile" schemaName="${schemaName}">
+	    <column name="EmlpoyeeProfilePersonalInformation" type="INTEGER"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="EmlpoyeeProfile" baseColumnNames="EmlpoyeeProfilePersonalInformation" baseTableSchemaName="${schemaName}" constraintName="EmlpoyeeProfile_PersonalInformation_fk" referencedTableName="EmployeePersonalInfo"
+	                                 referencedColumnNames="EmpPersonalInfoID" referencedTableSchemaName="${schemaName}"/>
+ 
+
+	    </changeSet>
+</databaseChangeLog>

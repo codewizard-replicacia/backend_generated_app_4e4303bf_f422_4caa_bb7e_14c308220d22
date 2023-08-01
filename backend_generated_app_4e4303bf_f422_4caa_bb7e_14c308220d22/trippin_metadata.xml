@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="false" Name="Organization">
+                <Key>
+                    <PropertyRef Name="OrganizationID"/>
+                </Key>
+                <Property Name="OrganizationID" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="AboutOrganization" Type="Edm.String" isUnique="false"/>
+                <Property Name="OrganzationMissionVision" Type="Edm.String" isUnique="false"/>
+                <Property Name="OrganizationValues" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="Employees" Type="Collection(Model.EmlpoyeeProfile)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="EmployeePersonalInfo">
+                <Key>
+                    <PropertyRef Name="EmpPersonalInfoID"/>
+                </Key>
+                <Property Name="EmpPersonalInfoID" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="EmployeeFullName" Type="Edm.String" isUnique="false"/>
+                <Property Name="Gender" Type="Edm.Boolean" isUnique="false"/>
+                <Property Name="PhoneNumber" Type="Edm.Int64" isUnique="false"/>
+                <Property Name="LaguagesKnown" Type="Edm.String" isUnique="false"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="EmlpoyeeProfile">
+                <Key>
+                    <PropertyRef Name="EmpID"/>
+                </Key>
+                <Property Name="EmpID" Type="Edm.Int32" isUnique="false"/>
+                <Property Name="EmpName" Type="Edm.String" isUnique="false"/>
+                <Property Name="EmpEmailID" Type="Edm.String" isUnique="false"/>
+                <Property Name="EmpPhoto" Type="Edm.String" isUnique="false"/>
+                <Property Name="Details" Type="Edm.String" isUnique="false"/>
+                <NavigationProperty Name="PersonalInformation" Type="Model.EmployeePersonalInfo"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Organizations" EntityType="Model.Organization">
+                    <NavigationPropertyBinding Path="Employees" Target="EmlpoyeeProfiles"/>
+                </EntitySet>
+                <EntitySet Name="EmployeePersonalInfoes" EntityType="Model.EmployeePersonalInfo"/>
+                <EntitySet Name="EmlpoyeeProfiles" EntityType="Model.EmlpoyeeProfile">
+                    <NavigationPropertyBinding Path="PersonalInformation" Target="EmployeePersonalInfoes"/>
+                </EntitySet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
